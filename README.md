@@ -27,29 +27,33 @@
 1. Python 2.7, sqlite3, redis, пакеты для aptitude см. в scripts/install.sh
 
 2. Библиотеки и миграции:
-```shell
-make
-```
+
+    ```shell
+    make
+    ```
 
 3. Запустить селери:
-```shell
-./manage.py celery worker --loglevel=DEBUG -c 5
-```
+
+    ```shell
+    ./manage.py celery worker --loglevel=DEBUG -c 5
+    ```
 
 4. Запустить торнадо:
-```shell
-./manage.py tornado-start
-```
+
+    ```shell
+    ./manage.py tornado-start
+    ```
 
 5. Запустить сервер:
-```shell
-./manage.py runserver
-```
+
+    ```shell
+    ./manage.py runserver
+    ```
 
 ## Или
 
-```shell
-cd django-tornado-celery-example
-vagrant up
-```shell
+    ```shell
+    cd django-tornado-celery-example
+    vagrant up
+    ```
 
