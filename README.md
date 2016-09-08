@@ -52,8 +52,8 @@
 
 ## Или
 
-    ```shell
-    cd django-tornado-celery-example
-    vagrant up
-    ```
+```shell
+cd django-tornado-celery-example
+vagrant up
+```
 
