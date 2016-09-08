@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+{% load static %}
+<head>
+    <title>django-tornado-celery-example test</title>
+    <style>
+        h1 {font-size:1.5em;}
+        .task {margin:20px;height:300px;width:640px;}
+        body{word-wrap: break-word;}
+        .progress_bar{width:400px; background:lightgrey};
+    </style>
+</head>
+<body>
+
+    {# Область постановки задач #}
+    <div>
+        <h1>Постановка задач</h1>
+
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div style='color:red'>
+                        {{ field.label }}: {{ error|escape }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            {% if form.non_field_errors %}
+                ---------------------------------------------------------------
+                {% for error in form.non_field_errors %}
+                    <div style='color:red'>
+                        {{ error|escape }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+            -------------------------------------------------------------
+        {% endif %}
+
+        <form name=urls-form method=POST id='create-form' action="{% url 'create' %}">
+            {% csrf_token %}
+
+            <div>
+                * Введите список URL (1 строка = 1 URL):
+                <div>
+                    {{ form.urls }}
+                </div>
+            </div>
+
+            <div>
+                Время (YYYY-MM-DD hh:mm:ss):<br>
+                <div>
+                    {{ form.time }}
+                </div>
+            </div>
+
+            </br>
+            <div>
+                <input type=submit id='btn-create-tasks' value='Создать задачи'>
+                <input type=button class='btn-ajax' data-url='{% url "delete" %}' data-callback='get_list' value='Удалить все задачи'>
+            </div>
+        </form>
+    </div>
+
+    {# Область списка задач #}
+    <div>
+        <h1>Список задач</h1>
+        <div>
+            <input type=button class='btn-ajax' data-url="{% url 'cancel' %}" value='Остановить все'>
+        </div>
+        <br>
+
+        <div id='tasks-list'>
+            <div class='paginator'></div>
+            <div id='tasksList'></div>
+            <div class='paginator'></div>
+        </div>
+    </div>
+
+<script>
+    var django_vars = {
+        'url': "{% url 'task-list' %}" + '?format=json&page={{ page }}',
+        'tornado_url': '{{ TORNADO_URL }}',
+    }
+</script>
+<script src="{% static 'jquery-3.1.0.min.js' %}" type="text/javascript" charset="utf-8"></script>
+<script src="{% static 'sockjs-0.3.min.js' %}" type="text/javascript" charset="utf-8"></script>
+<script src="{% static 'nanobar.min.js' %}" type="text/javascript" charset="utf-8"></script>
+<script src="{% static 'jsrender.min.js' %}" type="text/javascript" charset="utf-8"></script>
+<script src="{% static 'main.js' %}" type="text/javascript" charset="utf-8"></script>
+<script src="{% static 'templates.js' %}" type="text/javascript" charset="utf-8"></script>
+
+</body>
+</html>
